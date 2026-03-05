@@ -1,0 +1,165 @@
+
+@import '~@fluentui/react/dist/sass/References.scss';
+
+
+/* List formatting https://www.w3schools.com/css/css_list.asp */
+
+/* Container uses SharePoint semantic colors */
+/* This is the NAV */
+.root {
+  background-color: "[theme: bodyBackground, default: #ffffff]";
+  color: "[theme: bodyText, default: #333333]";
+  //border: 1px solid "[theme: bodyDivider, default: #e1e1e1]";
+  border-radius: 0px;
+  //padding: 8px 12px;
+  padding:0px;
+
+  position: sticky;
+  top: 16px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Title respects user-selected color, falls back to theme bodyText */
+.title {
+  color: var(--toc-title-color, "[theme: bodyText, default: #333333]");
+  font-weight: 600;
+ margin-top:0px;
+  margin-left: 0px;
+  margin-block-end: 8px;
+    margin-block-start: 0px;
+  text-align: left;
+  font-size: 2em;
+
+}
+
+
+
+/* Link styling uses SharePoint semantic tokens */
+.link {
+  color: var(--toc-link-color, "[theme: link, default: #0067c5]");
+  text-decoration: none;
+
+  &:hover {
+    color: "[theme: linkHovered, default: #004578]";
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 2px solid "[theme: focusBorder, default: #605e5c]";
+    outline-offset: 2px;
+  }
+}
+
+/* Active item highlights with themePrimary */
+.active {
+  font-weight: 600;
+  color: "[theme: themePrimary, default: #0078d4]";
+}
+
+
+/* Top-level list (applied to the depth === 0 list) */
+.listRoot {
+  /* list style comes from a CSS var set by React */
+  list-style-type: var(--toc-list-style, disc);
+
+  /* Use columns settings set by JS via CSS vars */
+  column-count: var(--toc-columns, 1);
+  column-gap: var(--toc-column-gap, 16px);
+  column-width: var(--toc-column-width, 150px);
+
+  /* Do NOT force list-style here — allow the component to set listStyleType
+     so bulleted lists can show bullets. */
+
+  padding-inline-start: 20px;
+  margin-block-start: 0px;
+  margin-block-end: 0;
+
+  color: var(--toc-link-color, inherit);
+  //   color: var(--toc-link-color, "[theme: bodyText, default: #333333]");
+
+  /* keep items compact */
+  li {
+    break-inside: avoid-column;
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+  }
+
+  li::marker {
+    font-weight: inherit;
+    font-size: 1.285em;
+  }
+
+  /* anchors inherit fonts / colors */
+  a {
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    font-size: 1.285em;
+
+
+  }
+}
+
+/* Nested lists inherit the same style & color; just indent more */
+
+.listNested {
+  list-style-type: inherit;
+  margin-block-end: 10px;
+  padding-inline-start: 26px;
+
+  color: inherit;
+
+      /* keep items compact */
+  li {
+    break-inside: avoid-column;
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+    
+  }
+
+  a {
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    font-size: 1.285em;
+  }
+}
+  
+
+/* Hierarchical numbering (1., 1.1, 1.1.1 ...) applied to the top-level list */
+.listRoot.hierarchical {
+  list-style: none;          /* hide native top-level markers */
+  counter-reset: toc;        /* reset counter for the top-level list */
+  padding-inline-start: 0;
+}
+
+/* Ensure each li increments the counter (all levels) */
+.listRoot.hierarchical li {
+  counter-increment: toc;
+  display: list-item;        /* ensure ::before is rendered like a list marker */
+}
+
+/* Prefix each li with the hierarchical counter (1., 1.1, 1.1.1) */
+.listRoot.hierarchical li::before {
+  content: counters(toc, ".") ". ";
+  margin-right: 8px;
+  font: inherit;
+  color: inherit;
+  font-weight: inherit;
+  font-size: 1.285em;
+}
+
+/* Reset the counter for nested lists so sub-levels include parent counters */
+.listRoot.hierarchical li > ol,
+.listRoot.hierarchical li > ul,
+.listRoot.hierarchical li ol,
+.listRoot.hierarchical li ul {
+  counter-reset: toc;        /* nested list starts its own inner counting while preserving ancestors */
+  list-style: none;          /* hide native markers for nested lists */
+}
+
+/* Extra insurance: hide native marker where ::marker is supported */
+.listRoot.hierarchical li::marker {
+  content: "";
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "table-of-contents-webpart-client-side-solution",
+    "id": "366bf513-5e38-4b6c-aad3-30c5d705d101",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "table-of-contents-webpart description"
+      },
+      "longDescription": {
+        "default": "table-of-contents-webpart description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "table-of-contents-webpart Feature",
+        "description": "The feature that activates elements of the table-of-contents-webpart solution.",
+        "id": "a7f4032e-062e-445d-9f56-3ca6cdf79d4d",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/table-of-contents-webpart.sppkg"
+  }
+}
